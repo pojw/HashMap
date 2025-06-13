@@ -232,11 +232,27 @@ class hashMap {
       }
     }
   }
+
+  get(key) {
+    let array = this.array;
+    let length = this.capacity;
+    for (let i = 0; i < length; i++) {
+      console.log(array[i]);
+      console.log(i);
+      if (array[i] == null) {
+        console.log(i);
+      }
+    }
+  }
 }
 
 let test = new hashMap(0.75, 10, []);
 
 test.set("jaylin", "hernandez");
+test.set("banana", "yellow");
+
 test.set("worddfo", "testing");
 test.set("lamperes", "etesing");
 test.set("jaylin", "rangel");
+
+test.get("jaylin");
