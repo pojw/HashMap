@@ -92,9 +92,10 @@ class LinkedList {
   contains(value) {
     let current = this.head;
     while (true) {
-      if (current.content == value) {
+      if (current.content.key == value) {
         console.log(true);
-        return true;
+        console.log(current.content.value);
+        return current.content.value;
       }
       if (current.next == null) {
         console.log(false);
@@ -236,11 +237,16 @@ class hashMap {
   get(key) {
     let array = this.array;
     let length = this.capacity;
+    console.log(array);
     for (let i = 0; i < length; i++) {
-      console.log(array[i]);
-      console.log(i);
       if (array[i] == null) {
-        console.log(i);
+        // console.log("nothing in " + i);
+      } else if (array[i].key) {
+        console.log("key in " + i);
+      } else if (this.array[i].contains("jaylin")) {
+        console.log(this.array[i].contains("jaylin"));
+      } else {
+        return false;
       }
     }
   }
