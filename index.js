@@ -31,18 +31,10 @@ class LinkedList {
   size() {
     let i = 0;
     let current = this.head;
-    if (current.next == null) {
-      console.log(i);
-      return i;
-    }
-    while (current.next != null) {
+    while (current != null) {
       i += 1;
-      console.log(current.content);
       current = current.next;
     }
-    i += 1;
-    console.log(i);
-
     return i;
   }
   first() {
@@ -104,17 +96,33 @@ class LinkedList {
       current = current.next;
     }
   }
-  toString() {
-    let string = "";
+  containsAt(value) {
+    let current = this.head;
+    let count = 0;
+    while (true) {
+      if (current.content.key == value) {
+        console.log(true);
+        console.log(current.content.value);
+        return count;
+      }
+      if (current.next == null) {
+        console.log(false);
+        return false;
+      }
+      current = current.next;
+      count += 1;
+    }
+  }
+  toStringKey() {
+    let string = [];
     let length = this.size();
     let current = this.head;
     while (length > 0) {
       console.log(current.content);
-      string += `(${current.content})-> `;
+      string.push(current.content.key);
       current = current.next;
       length -= 1;
     }
-    string += "null";
     console.log(string);
     return string;
   }
@@ -243,12 +251,97 @@ class hashMap {
         // console.log("nothing in " + i);
       } else if (array[i].key) {
         console.log("key in " + i);
-      } else if (this.array[i].contains("jaylin")) {
-        console.log(this.array[i].contains("jaylin"));
+      } else if (this.array[i].contains(key)) {
+        console.log(this.array[i].contains(key));
+        return this.array[i].contains(key);
       } else {
         return false;
       }
     }
+  }
+  has(key) {
+    let array = this.array;
+    let length = this.capacity;
+    console.log(array);
+    for (let i = 0; i < length; i++) {
+      if (array[i] == null) {
+        // console.log("nothing in " + i);
+      } else if (array[i].key) {
+        console.log("key in " + i);
+      } else if (this.array[i].contains(key)) {
+        console.log(this.array[i].contains(key));
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
+  remove(key) {
+    let array = this.array;
+    for (let i = 0; i < this.capacity; i++) {
+      if (array[i] == null) {
+        continue;
+      } else if (array[i].key == key) {
+        array[i] = [];
+        console.log("removed");
+        console.log(this.array);
+
+        return;
+      } else if (this.array[i].contains(key)) {
+        let length = this.array[i].containsAt(key);
+        this.array[i].removeAt(length);
+        console.log("removed form linked list");
+        console.log(this.array);
+        return;
+      }
+    }
+  }
+  length() {
+    let count = 0;
+
+    for (let i = 0; i < this.capacity; i++) {
+      const entry = this.array[i];
+
+      if (this.array[i] == null) {
+        continue;
+      } else if (this.array[i].key) {
+        count += 1;
+      } else if (entry instanceof LinkedList) {
+        let size = this.array[i].size();
+        count += size;
+      }
+    }
+    console.log(count);
+    return count;
+  }
+  clear() {
+    for (let i = 0; i < this.capacity; i++) {
+      this.array[i] = [];
+    }
+    console.log(this.array);
+  }
+  keys() {
+    let keys = [];
+    for (let i = 0; i < this.capacity; i++) {
+      const entry = this.array[i];
+
+      if (this.array[i] == null) {
+        continue;
+      } else if (this.array[i].key) {
+        console.log("fsdlkfj" + this.array[i].key);
+        keys.push(this.array[i].key);
+        console.log(keys);
+      } else if (entry instanceof LinkedList) {
+        let linkedArray = this.array[i].toStringKey();
+        console.log(linkedArray);
+        for (let i = 0; i < linkedArray.length; i++) {
+          keys.push(linkedArray[i]);
+          console.log(linkedArray[i]);
+        }
+      }
+    }
+    console.log(keys);
+    console.log("hefhsjdfljsd");
   }
 }
 
@@ -262,3 +355,9 @@ test.set("lamperes", "etesing");
 test.set("jaylin", "rangel");
 
 test.get("jaylin");
+test.length();
+test.keys();
+test.remove("banana");
+test.length();
+
+test.clear();
