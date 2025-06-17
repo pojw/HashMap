@@ -126,6 +126,19 @@ class LinkedList {
     console.log(string);
     return string;
   }
+  toStringValue() {
+    let string = [];
+    let length = this.size();
+    let current = this.head;
+    while (length > 0) {
+      console.log(current.content);
+      string.push(current.content.value);
+      current = current.next;
+      length -= 1;
+    }
+    console.log(string);
+    return string;
+  }
   insertAt(value, index) {
     let current = this.head;
     let previous = current;
@@ -339,9 +352,45 @@ class hashMap {
           console.log(linkedArray[i]);
         }
       }
+      return keys;
     }
     console.log(keys);
     console.log("hefhsjdfljsd");
+  }
+  values() {
+    let keys = [];
+    for (let i = 0; i < this.capacity; i++) {
+      const entry = this.array[i];
+
+      if (this.array[i] == null) {
+        continue;
+      } else if (this.array[i].key) {
+        console.log("fsdlkfj" + this.array[i].value);
+        keys.push(this.array[i].value);
+        console.log(keys);
+      } else if (entry instanceof LinkedList) {
+        let linkedArray = this.array[i].toStringValue();
+        console.log(linkedArray);
+        for (let i = 0; i < linkedArray.length; i++) {
+          keys.push(linkedArray[i]);
+          console.log(linkedArray[i]);
+        }
+      }
+    }
+    console.log(keys);
+    return keys;
+  }
+  entries() {
+    let keys = this.keys();
+    let values = this.values();
+    console.log("ffff");
+    let entries = [];
+    for (let i = 0; i < keys.length; i++) {
+      let obj = [keys[i], values[i]];
+      entries.push(obj);
+    }
+    console.log(entries);
+    return entries;
   }
 }
 
@@ -354,10 +403,6 @@ test.set("worddfo", "testing");
 test.set("lamperes", "etesing");
 test.set("jaylin", "rangel");
 
-test.get("jaylin");
-test.length();
 test.keys();
-test.remove("banana");
-test.length();
-
-test.clear();
+test.values();
+test.entries();
